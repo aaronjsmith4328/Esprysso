@@ -7,6 +7,8 @@
 
 <p align="center"><em>A toy place-and-route tool — pulling a layout under pressure.</em></p>
 
+<p align="center"><strong>Written in Julia.</strong></p>
+
 ---
 
 ## Overview
@@ -17,9 +19,12 @@ a P&R tool decides *where* each cell goes on the die and *how* the wires between
 them are routed, producing a physical layout that (ideally) meets area, timing,
 and design-rule constraints.
 
-This is a learning project, not a production tool. The goal is to work through
-the algorithms — partitioning, placement, and routing — by implementing them
-from the ground up and seeing where the hard parts actually are.
+This is a learning project, not a production tool. It's written in **Julia**
+because P&R is half algorithms, half math — the analytic placement methods
+(quadratic / force-directed) read almost like the equations, sparse solves and
+array work are first-class, and multiple dispatch is a genuinely different way to
+structure code around the many interacting entity types (cells, nets, grids,
+obstacles).
 
 ## Status
 
@@ -39,14 +44,15 @@ Nothing here is fixed — it's a sketch to aim at.
 
 ## Toolchain
 
-- **Python 3.14**
-- **[uv](https://github.com/astral-sh/uv)** for environment and dependency management
+- **Julia**
+- Built-in **Pkg** for environment and dependency management (`Project.toml`)
 
 Once there's code, the intended setup will look roughly like:
 
 ```bash
-uv python install 3.14
-uv sync
+julia --project=.
+# then, in the Pkg REPL (press ] ):
+pkg> instantiate
 ```
 ---
 
