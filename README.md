@@ -55,5 +55,22 @@ julia --project=.
 pkg> instantiate
 ```
 ---
+## Definition of Done
+ 
+**You have a placer-and-router when:** it places a handful of cells to minimize
+wirelength, then connects at least one pair of pins with maze routing. One tiny
+algorithm per word in the name — landing *either* is half the idea.
+ 
+The core ideas: for **placement**, model each net as a spring and minimize total
+squared wirelength, which becomes a linear solve `Q·x = b` — "where should things
+go" turns into linear algebra. (You need a few *fixed* anchor pads, or the math
+collapses every cell onto one point.) For **routing**, Lee's algorithm — a
+breadth-first wavefront across a grid from source to target, treating placed
+cells as obstacles, then backtrace the shortest path.
+ 
+- **Floor:** if the linear solve fights you, place by minimizing half-perimeter
+  wirelength on a grid — keep the routing intact.
+- **Stretch:** route a second net that must avoid the first.
+---
 
 *Part of a small suite of toy EDA tools built for learning.*
